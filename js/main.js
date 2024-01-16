@@ -1,27 +1,40 @@
 (function ($) {
     "use strict";
 
-    var backgroundVideo = document.getElementById('background-video');
-    var videoContainer = document.getElementById('video-container');
-    var contentContainer = document.getElementById('content');
+    // var backgroundVideo = document.getElementById('background-video');
+    // var videoContainer = document.getElementById('video-container');
+    // var contentContainer = document.getElementById('content');
+    // backgroundVideo.addEventListener('timeupdate', function() {
+    //     if (backgroundVideo.currentTime >= 2) {
+    //         videoContainer.style.display = 'none';
+    //         contentContainer.style.display = 'block';
+    //         backgroundVideo.pause();
+    //     }
+    // });
+    // backgroundVideo.addEventListener('error', function() {
+    //     console.error('Error loading or playing the video.');
+    // });
+    var backgroundGif = document.getElementById('background-gif');
+var gifContainer = document.getElementById('video-container');
+var contentContainer = document.getElementById('content');
 
-    backgroundVideo.addEventListener('timeupdate', function() {
-        // Check if the video has played for at least 5 seconds
-        if (backgroundVideo.currentTime >= 2) {
-            // Video has played for 5 seconds, hide the video and show the content
-            videoContainer.style.display = 'none';
-            contentContainer.style.display = 'block';
-    
-            // Pause the video
-            backgroundVideo.pause();
-        }
-    });
-    
+function checkGifCompletion() {
+    if (backgroundGif.complete) {
+        contentContainer.style.display = 'block';
+        gifContainer.style.display = 'none';
+    } else {
+        requestAnimationFrame(checkGifCompletion);
+    }
+}
+backgroundGif.onload = function() {
+    setTimeout(function() {
+        checkGifCompletion();
+    }, 1500); // 5000 milliseconds = 5 seconds (adjust as needed)
+};
+if (backgroundGif.complete) {
+    backgroundGif.onload();
+}
 
-    backgroundVideo.addEventListener('error', function() {
-        // Handle error (e.g., show an error message, fallback content)
-        console.error('Error loading or playing the video.');
-    });
     // Spinner
     var spinner = function () {
         setTimeout(function () {
