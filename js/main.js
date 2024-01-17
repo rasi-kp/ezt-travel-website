@@ -1,39 +1,25 @@
 (function ($) {
     "use strict";
-
-    // var backgroundVideo = document.getElementById('background-video');
-    // var videoContainer = document.getElementById('video-container');
-    // var contentContainer = document.getElementById('content');
-    // backgroundVideo.addEventListener('timeupdate', function() {
-    //     if (backgroundVideo.currentTime >= 2) {
-    //         videoContainer.style.display = 'none';
-    //         contentContainer.style.display = 'block';
-    //         backgroundVideo.pause();
-    //     }
-    // });
-    // backgroundVideo.addEventListener('error', function() {
-    //     console.error('Error loading or playing the video.');
-    // });
     var backgroundGif = document.getElementById('background-gif');
-var gifContainer = document.getElementById('video-container');
-var contentContainer = document.getElementById('content');
+    var gifContainer = document.getElementById('video-container');
+    var contentContainer = document.getElementById('content');
 
-function checkGifCompletion() {
-    if (backgroundGif.complete) {
-        contentContainer.style.display = 'block';
-        gifContainer.style.display = 'none';
-    } else {
-        requestAnimationFrame(checkGifCompletion);
+    function checkGifCompletion() {
+        if (backgroundGif.complete) {
+            contentContainer.style.display = 'block';
+            gifContainer.style.display = 'none';
+        } else {
+            requestAnimationFrame(checkGifCompletion);
+        }
     }
-}
-backgroundGif.onload = function() {
-    setTimeout(function() {
-        checkGifCompletion();
-    }, 1500); // 5000 milliseconds = 5 seconds (adjust as needed)
-};
-if (backgroundGif.complete) {
-    backgroundGif.onload();
-}
+    backgroundGif.onload = function () {
+        setTimeout(function () {
+            checkGifCompletion();
+        }, 1500); // 5000 milliseconds = 5 seconds (adjust as needed)
+    };
+    if (backgroundGif.complete) {
+        backgroundGif.onload();
+    }
 
     // Spinner
     var spinner = function () {
